@@ -1,0 +1,12 @@
+// Import Bootstrap's functions and variables
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+// Override Bootstrap variables
+$theme-colors: (
+"primary": #ff5733, // Your custom primary color
+// You can add more color customizations here
+);
+
+// Import the rest of Bootstrap
+@import '~bootstrap/scss/bootstrap';
