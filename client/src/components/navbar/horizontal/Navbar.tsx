@@ -1,5 +1,7 @@
 import {Fragment} from "react";
+
 import {Badge, Col, List, ListGroupItem, Row} from "reactstrap";
+
 import logo from '../../../assets/img/Essence.png'
 import Search from "../../../assets/icons/search";
 import Bag from "../../../assets/icons/bag";
@@ -12,27 +14,33 @@ const Navbar = () => {
                     <Col lg={2} xs={4} className={'my-3'}>
                         <img src={logo} alt="" className={'w-50 mt-2 ms-4'}/>
                     </Col>
-                    <Col lg={4} className={'d-lg-block d-none d-flex align-items-center'}>
+                    <Col lg={4} className={'flex items-center'}>
                         <List className={'d-flex align-items-center mb-0'}>
-                            <ListGroupItem className={'text-theme-main'}>
+                            <ListGroupItem className={'text-theme-main cursor-pointer'}>
                                 Home
                             </ListGroupItem>
-                            <ListGroupItem className={'ms-5 text-theme-neutral-four'}>
+                            <ListGroupItem className={'ms-5 text-theme-neutral-four cursor-pointer'}>
                                 Shop
                             </ListGroupItem>
-                            <ListGroupItem className={'ms-5 text-theme-neutral-four'}>
+                            <ListGroupItem className={'ms-5 text-theme-neutral-four cursor-pointer'}>
                                 Product
                             </ListGroupItem>
-                            <ListGroupItem className={'ms-5 text-theme-neutral-four'}>
+                            <ListGroupItem className={'ms-5 text-theme-neutral-four cursor-pointer'}>
                                 Contact Us
                             </ListGroupItem>
                         </List>
                     </Col>
-                    <Col lg={2} xs={4} className={'d-flex align-items-center'}>
-                        <Search className={'me-3'}/>
-                        <User className={'me-3'}/>
-                        <Bag className={''}/>
-                        <Badge className={'rounded-circle ms-1'} color={'theme-secondary-one'}>2</Badge>
+                    <Col lg={2} xs={4} className={'d-flex align-items-center justify-end'}>
+                        <div className={'cursor-pointer'}>
+                            <Search className={'me-3'}/>
+                        </div>
+                        <div className={'cursor-pointer'}>
+                            <User className={'me-3'}/>
+                        </div>
+                        <div className={'cursor-pointer d-flex'}>
+                            <Bag className={''}/>
+                            <Badge className={'rounded-circle ms-1'} color={'theme-secondary-one'}>2</Badge>
+                        </div>
                     </Col>
                 </Row>
             </Col>
