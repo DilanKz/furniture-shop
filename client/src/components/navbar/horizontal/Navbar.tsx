@@ -14,7 +14,7 @@ const Navbar = () => {
                     <Col lg={2} xs={4} className={'my-3'}>
                         <img src={logo} alt="" className={'w-50 mt-2 ms-4'}/>
                     </Col>
-                    <Col lg={4} className={'flex items-center'}>
+                    <Col lg={4} className={'d-lg-flex d-none items-center'}>
                         <List className={'d-flex align-items-center mb-0'}>
                             <ListGroupItem className={'text-theme-main cursor-pointer'}>
                                 Home
