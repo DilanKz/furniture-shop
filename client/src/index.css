@@ -7,3 +7,8 @@
 * {
     font-family: 'Poppins', sans-serif;
 }
+
+.accordion-button{
+    background-color: #ffffff !important;
+    box-shadow: none!important;
+}
