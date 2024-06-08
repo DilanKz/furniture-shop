@@ -6,10 +6,16 @@ import logo from '../../../assets/img/Essence.png'
 import Search from "../../../assets/icons/search";
 import Bag from "../../../assets/icons/bag";
 import User from "../../../assets/icons/user";
+import {CartModel} from "../../../view/modals/CartModel";
 
 const Navbar = () => {
 
     const [open, setOpen] = useState(false)
+    const [canvasOpen, setCanvasOpen] = useState(false)
+
+    const toggleCanvasScroll = () => {
+        setCanvasOpen(!canvasOpen)
+    }
 
     return (
         <Col xs={12} className={`position-fixed top-0 start-0 bg-theme-neutral-one vw-100 z-[1000] bg-red-400 ${!open ? 'h-16':'h-max'} transition-all overflow-hidden duration-300 ease-in`}>
@@ -48,12 +54,13 @@ const Navbar = () => {
                     <div className={'cursor-pointer'}>
                         <User className={'me-3'}/>
                     </div>
-                    <div className={'cursor-pointer d-flex'}>
+                    <div className={'cursor-pointer d-flex'} onClick={toggleCanvasScroll}>
                         <Bag className={''}/>
                         <Badge className={'rounded-circle ms-1'} color={'theme-secondary-one'}>2</Badge>
                     </div>
                 </Col>
             </Row>
+            <CartModel canvasOpen={canvasOpen} toggleCanvasScroll={toggleCanvasScroll} />
         </Col>
     );
 };
