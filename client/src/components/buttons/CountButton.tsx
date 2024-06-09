@@ -25,6 +25,7 @@ export const CountButton = (props:any) => {
             <input
                 value={value}
                 type='text'
+                onChange={()=>{}}
                 className={'md:w-12 w-8 md:p-2 p-1 bg-gray-200 text-center font-semibold outline-0'}
             />
             <div className={'flex items-center md:pe-3 pe-1 cursor-pointer user-select-none'} onClick={() => changeValue('+')}>

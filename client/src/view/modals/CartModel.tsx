@@ -1,7 +1,11 @@
-import { Button, Offcanvas, OffcanvasHeader, OffcanvasBody } from 'reactstrap'
-import React, {useState} from "react";
+import React from "react";
+import {Button, Offcanvas, OffcanvasBody, OffcanvasHeader} from 'reactstrap'
 import {CartItem} from "../../components/Cards/CartItem";
-export function CartModel(props:any) {
+import {useNavigate} from "react-router-dom";
+export const CartModel = (props: any) => {
+
+    const navigate = useNavigate();
+
     return (
         <div className='demo-inline-spacing'>
             <Offcanvas
@@ -35,7 +39,10 @@ export function CartModel(props:any) {
                         </div>
                         <div>
                             <div className={'w-full flex flex-col justify-center'}>
-                                <Button block color='theme-main' onClick={props.toggleCanvasScroll}
+                                <Button block color='theme-main' onClick={() => {
+                                    props.toggleCanvasScroll()
+                                    navigate('/checkout')
+                                }}
                                         className='mb-1 uppercase'>
                                     CheckOut
                                 </Button>
