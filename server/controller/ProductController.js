@@ -13,15 +13,23 @@ const productController = {
 
     postProduct: async function (req, res, next) {
         try {
-            const article = req.body;
+            const product = req.body
 
             const newProduct = await Product.create({
-                author: article.id,
-                title: article.title,
-                body: article.body,
-                tags: article.tags,
-                image: article.image,
-            });
+                sku: product.sku,
+                name: product.name,
+                price: product.price,
+                description: product.description,
+                count: product.count,
+                additionalData: product.additionalData,
+                image1: product.image1,
+                image2: product.image2,
+                image3: product.image3,
+                image4: product.image4,
+                category: product.category,
+                ratings: product.ratings,
+                clicks: product.clicks
+            })
 
             res.status(201).json({success: true, data: '', message: "Product created successfully"});
         } catch (error) {
