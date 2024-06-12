@@ -2,8 +2,11 @@ const mongoose = require('mongoose');
 
 const ProductModel = mongoose.Schema({
     sku: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true,
+        unique: true,
+        index: true,
+        primaryKey: true,
     },
     name: {
         type: String,
@@ -11,6 +14,10 @@ const ProductModel = mongoose.Schema({
     },
     description: {
         type: String,
+        required: true,
+    },
+    count: {
+        type: Number,
         required: true,
     },
     additionalData: {
