@@ -12,6 +12,10 @@ const ProductModel = mongoose.Schema({
         type: String,
         required: true,
     },
+    price: {
+        type: String,
+        required: true,
+    },
     description: {
         type: String,
         required: true,
@@ -44,6 +48,11 @@ const ProductModel = mongoose.Schema({
         type: [String],
         required: true,
     },
+    ratings: {
+        type: [String],
+        required: true,
+        default:0
+    },
     postDate: {
         type: Date,
         default: Date.now,
@@ -59,5 +68,5 @@ const ProductModel = mongoose.Schema({
     }
 });
 
-const Article = mongoose.model('Article', ProductModel);
+const Article = mongoose.model('Products', ProductModel);
 module.exports = Article;
