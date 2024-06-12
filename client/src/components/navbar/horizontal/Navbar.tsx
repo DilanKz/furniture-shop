@@ -29,7 +29,7 @@ const Navbar = () => {
                     </div>
                     <img src={logo} alt="" className={'w-50 mt- ms-1'}/>
                 </Col>
-                <Col lg={5} className={`d-lg-flex items-center order-lg-2 order-3 ${open ? '' : 'd-none'}`}>
+                <div className={`w-[max-content!important] d-lg-flex items-center order-lg-2 order-3 ${open ? '' : 'd-none'}`}>
                     <List
                         className={'d-flex lg:flex-row flex-col align-items-lg-center mb-0 lg:gap-y-0 gap-y-8 lg:pb-0 pb-10'}>
                         <Link to="/home" className={'text-decoration-none text-theme-main cursor-pointer text-[16px]'} onClick={()=>{}}>
@@ -37,9 +37,6 @@ const Navbar = () => {
                         </Link>
                         <Link to="/store" className={'text-decoration-none ms-lg-5 text-theme-neutral-four cursor-pointer text-[16px]'}>
                             Shop
-                        </Link>
-                        <Link to="/preview" className={'text-decoration-none ms-lg-5 text-theme-neutral-four cursor-pointer text-[16px]'}>
-                            Product
                         </Link>
                         <Link to="/none" className={'text-decoration-none ms-lg-5 text-theme-neutral-four cursor-pointer text-[16px]'}>
                             Contact Us
@@ -50,7 +47,8 @@ const Navbar = () => {
                             </div>
                         </Link>
                     </List>
-                </Col>
+                </div>
+
                 <Col lg={2} xs={4} className={'d-flex align-items-center justify-end order-lg-3 order-2'}>
                     <div className={'cursor-pointer d-lg-block d-none'}>
                         <Search className={'me-3'}/>
