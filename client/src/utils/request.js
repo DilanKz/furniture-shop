@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const request = async (method, path, data = null, headers = {}) => {
+const request = async (method, path, data , headers = {}) => {
     try {
         const response = await axios({
             method,
