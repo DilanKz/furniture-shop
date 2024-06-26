@@ -3,17 +3,19 @@ import {useState} from "react";
 
 export const CountButton = (props:any) => {
 
-    const [value, setValue] = useState(1)
-
     const changeValue = (operator:any) => {
         if (operator == '-') {
-            if (value === 1) {
+            if (props.value === 1) {
 
             } else {
-                setValue(value - 1)
+                props.setValue(props.value - 1)
             }
         } else {
-            setValue(value + 1)
+            if (props.limit >= props.value + 1) {
+                props.setValue(props.value + 1)
+            } else {
+                console.log(props.limit)
+            }
         }
     }
 
@@ -23,7 +25,7 @@ export const CountButton = (props:any) => {
                 -
             </div>
             <input
-                value={value}
+                value={props.value}
                 type='text'
                 onChange={()=>{}}
                 className={'md:w-12 w-8 md:p-2 p-1 bg-gray-200 text-center font-semibold outline-0'}
