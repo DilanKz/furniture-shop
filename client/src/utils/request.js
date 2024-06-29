@@ -12,6 +12,7 @@ const request = async (method, path, data , headers = {}) => {
     } catch (error) {
         // throw error.response.data || error.message;
         console.log(error.response.data.message)
+        return {success:false,message:error.response.data.message};
     }
 };
 
