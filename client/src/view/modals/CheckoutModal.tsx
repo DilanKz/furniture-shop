@@ -112,19 +112,23 @@ export const CheckoutModal = (props: any) => {
             </ModalHeader>
             <ModalBody>
                 <div className={`p-4 ${step === 1 ? '' : 'd-none'}`}>
-                    {user ? <div className={'mb-4'}>
-                        <span className={'fw-bold text-gray-500'}>Address</span>
-                        <div className={'p-2 bg-gray-50 rounded-md flex justify-between'}>
-                            <p className={'mb-0 text-gray-500'}>{user.data.address[0].address}</p>
-                        </div>
-                    </div> : ''}
+                    {user ?
+                        <>
+                            {user.data.address.length > 0 ? <div className={'mb-4'}>
+                                <span className={'fw-bold text-gray-500'}>Address</span>
+                                <div className={'p-2 bg-gray-50 rounded-md flex justify-between'}>
+                                    <p className={'mb-0 text-gray-500'}>{user.data.address[0].address}</p>
+                                </div>
+                            </div> : ''}
+                        </>
+                        : ''}
                     <CartSummery total={props.total}/>
                 </div>
 
                 <div className={`p-4 ${step === 2 ? '' : 'd-none'}`}>
                     <span className={'fw-bold text-gray-500'}>Payment/Card Details</span>
                     <Row className={'gap-y-4 mt-4'}>
-                        <Col xs={12}>
+                    <Col xs={12}>
                             <Label>Card Number</Label>
                             <div className={'w-full flex px-2 items-center border border-gray-300 rounded-md'}>
                                 <input
@@ -170,7 +174,7 @@ export const CheckoutModal = (props: any) => {
                     </button>
                     {step === 2 ? <button className='btn btn-theme-main mb-1 w-[max-content!important]'
                                           onClick={putOrder}>Finish</button> :
-                        <button className='btn btn-theme-main mb-1 w-[max-content!important]'
+                        <button disabled={!(user && user.data.address.length < 0)} className='btn btn-theme-main mb-1 w-[max-content!important]'
                                 onClick={() => setStep(2)}>Next</button>}
                 </Row>
             </ModalBody>

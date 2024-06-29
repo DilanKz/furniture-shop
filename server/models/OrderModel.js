@@ -37,7 +37,7 @@ const OrderModel = mongoose.Schema({
     },
     state: {
         type: String,
-        enum: ['requested', 'approved'],
+        enum: ['requested', 'approved', 'denied'],
         default: 'requested',
     },
     shipping: {

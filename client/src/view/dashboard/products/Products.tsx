@@ -5,6 +5,7 @@ import request from "../../../utils/request";
 import {useEffect, useState} from "react";
 import DataTable, { ExpanderComponentProps } from 'react-data-table-component';
 import {AddProductModel} from "./AddProductModel";
+import {UpdateProductModal} from "./UpdateProductModal";
 
 type DataRow = {
     sku:string
@@ -18,47 +19,11 @@ const ExpandedComponent: React.FC<ExpanderComponentProps<DataRow>> = ({ data }) 
     );
 };
 
-const columns = [
-    {
-        name: 'SKU',
-        sortable: true,
-        selector: (row: any) => row.sku,
-    },
-    {
-        name: 'QTY',
-        selector: (row: any) => row.count,
-    },
-    {
-        name: 'Price',
-        sortable: true,
-        selector: (row: any) => row.price,
-    },
-    {
-        name: 'Action',
-        selector: (row: any) => {
-
-            return (
-                <>
-                    <Button id={`btnUpdate${row.sku}`} color={'theme-secondary-three'}
-                            className={'bg-green-400 text-white mr-2'}><FaPen size={10}/></Button>
-                    <Button id={`btnDelete${row.sku}`} color={'theme-secondary-two'}
-                            className={'bg-green-400 text-white'}><FaTrash size={10}/></Button>
-
-                    <UncontrolledTooltip target={`btnUpdate${row.sku}`}>
-                        Update Product
-                    </UncontrolledTooltip>
-                    <UncontrolledTooltip target={`btnDelete${row.sku}`}>
-                        Delete Product
-                    </UncontrolledTooltip>
-                </>
-            )
-        },
-    }
-];
-
 export const Products = () => {
     const [response, setResponse] = useState([])
     const [openAddProduct, setOpenAddProduct] = useState(false);
+    const [openEditProduct, setOpenEditProduct] = useState(false)
+
     const loadAllProducts = async () => {
         await request('GET', 'products/all').then(r => {
             setResponse(r.data)
@@ -71,10 +36,59 @@ export const Products = () => {
 
 
     const deleteProduct = (id:string) => {
-        request('POST', 'products/remove/').then(r => {
+        request('POST', `products/remove/${id}`).then(r => {
             if (r.success) {
             }
         })
+    }
+
+    const customColumn = () => {
+        return [
+            {
+                name: 'SKU',
+                sortable: true,
+                selector: (row: any) => row.sku,
+            },
+            {
+                name: 'QTY',
+                selector: (row: any) => row.count,
+            },
+            {
+                name: 'Price',
+                sortable: true,
+                selector: (row: any) => row.price,
+            },
+            {
+                name: 'Action',
+                selector: (row: any) => {
+
+                    return (
+                        <>
+                            <Button onClick={()=>setOpenEditProduct(true)} id={`btnUpdate${row.sku}`} color={'theme-secondary-three'}
+                                    className={'bg-green-400 text-white mr-2'}><FaPen size={10}/></Button>
+
+                            <Button onClick={()=>deleteProduct(row.sku)} id={`btnDelete${row.sku}`} color={'theme-secondary-two'}
+                                    className={'bg-green-400 text-white'}><FaTrash size={10}/></Button>
+
+                            {openEditProduct ?
+                                <UpdateProductModal
+                                    product={row}
+                                    open={openEditProduct}
+                                    loadAll={loadAllProducts}
+                                    toggle={setOpenEditProduct}
+                                /> : ''}
+
+                            <UncontrolledTooltip target={`btnUpdate${row.sku}`}>
+                                Update Product
+                            </UncontrolledTooltip>
+                            <UncontrolledTooltip target={`btnDelete${row.sku}`}>
+                                Delete Product
+                            </UncontrolledTooltip>
+                        </>
+                    )
+                },
+            }
+        ];
     }
 
     return (
@@ -88,7 +102,7 @@ export const Products = () => {
             <DataTable
                 pagination
                 data={response ? response : [] }
-                columns={columns}
+                columns={customColumn()}
                 paginationComponentOptions={{noRowsPerPage: true}}
                 expandableRows expandableRowsComponent={ExpandedComponent}
             />

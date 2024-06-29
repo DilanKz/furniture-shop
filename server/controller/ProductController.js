@@ -11,6 +11,15 @@ const productController = {
         }
     },
 
+    getAllProductsWithExtra: async function (req, res, next) {
+        try {
+            let allProducts = await Product.find();
+            res.status(200).json({success: true, data: allProducts, message: "All products retrieved successfully"});
+        } catch (error) {
+            res.status(500).json({success: false, message: "Error retrieving products", error: error.message});
+        }
+    },
+
     getOneProduct: async function (req, res, next) {
         try {
 
@@ -32,9 +41,9 @@ const productController = {
                 price: product.price,
                 count: product.count,
                 image1: product.image1,
-                image2: product.image2,
-                image3: product.image3,
-                image4: product.image4,
+                image2: 'A',
+                image3: 'A',
+                image4: 'A',
                 description:product.description
             })
 

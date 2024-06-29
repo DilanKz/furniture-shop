@@ -64,6 +64,40 @@ const OrderController = {
         } catch (error) {
             res.status(500).json({success: false, message: "Error creating order", error: error.message});
         }
+    },
+    approve: async (req, res, next) => {
+        try {
+            const { orderId } = req.body;
+            const order = await Order.findById(orderId);
+
+            if (!order) {
+                return res.status(404).json({ success: false, message: "Order not found" });
+            }
+
+            order.state = 'approved';
+            await order.save();
+
+            res.status(200).json({ success: true, data: order, message: "Order approved successfully" });
+        } catch (error) {
+            res.status(500).json({success: false, message: "Error creating order", error: error.message});
+        }
+    },
+    denied: async (req, res, next) => {
+        try {
+            const { orderId } = req.body;
+            const order = await Order.findById(orderId);
+
+            if (!order) {
+                return res.status(404).json({ success: false, message: "Order not found" });
+            }
+
+            order.state = 'denied';
+            await order.save();
+
+            res.status(200).json({ success: true, data: order, message: "Order denied successfully" });
+        } catch (error) {
+            res.status(500).json({ success: false, message: "Error denying order", error: error.message });
+        }
     }
 }
 
