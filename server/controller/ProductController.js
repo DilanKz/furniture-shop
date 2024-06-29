@@ -53,6 +53,27 @@ const productController = {
         }
     },
 
+    updateProduct: async function (req, res, next) {
+        try {
+            const { sku, price, count, description } = req.body;
+
+            const updatedProduct = await Product.findOneAndUpdate(
+                { sku: sku },
+                { price: price, count: count, description: description },
+                { new: true }
+            );
+
+            if (!updatedProduct) {
+                return res.status(404).json({ success: false, message: "Product not found" });
+            }
+            res.status(200).json({ success: true, data: updatedProduct, message: "Product updated successfully" });
+
+        } catch (error) {
+
+            res.status(500).json({success: false, message: "Error creating product", error: error.message});
+        }
+    },
+
     getAllRequested: async function (req, res, next) {
         try {
             let requestedArticles = await Product.find({availability: "requested"});

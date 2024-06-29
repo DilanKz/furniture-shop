@@ -8,13 +8,14 @@ import {AddProductModel} from "./AddProductModel";
 import {UpdateProductModal} from "./UpdateProductModal";
 
 type DataRow = {
-    sku:string
+    sku:string,
+    description:string
 };
 
 const ExpandedComponent: React.FC<ExpanderComponentProps<DataRow>> = ({ data }) => {
     return (
-        <div className={'p-2'}>
-            <span>{data.sku}</span>
+        <div className={'p-2 my-4'}>
+            <span>description: {data.description}</span>
         </div>
     );
 };

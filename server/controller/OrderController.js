@@ -68,7 +68,7 @@ const OrderController = {
     approve: async (req, res, next) => {
         try {
             const { orderId } = req.body;
-            const order = await Order.findById(orderId);
+            const order = await Order.findOne({orderId:orderId});
 
             if (!order) {
                 return res.status(404).json({ success: false, message: "Order not found" });
@@ -85,7 +85,7 @@ const OrderController = {
     denied: async (req, res, next) => {
         try {
             const { orderId } = req.body;
-            const order = await Order.findById(orderId);
+            const order = await Order.findOne({orderId:orderId});
 
             if (!order) {
                 return res.status(404).json({ success: false, message: "Order not found" });

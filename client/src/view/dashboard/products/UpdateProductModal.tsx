@@ -5,6 +5,7 @@ import request from "../../../utils/request";
 export const UpdateProductModal = (props: any) => {
     const toggleModal = () => props.toggle(!props.open);
     const [product, setProduct] = useState({
+        sku: props.product.sku,
         count: props.product.count,
         price: props.product.price,
         description: props.product.description
@@ -19,10 +20,11 @@ export const UpdateProductModal = (props: any) => {
     };
 
     const updateProduct = async () => {
-        request('POST', `products/update`, product).then(r => {
+        request('PUT', `products/update`, product).then(r => {
             if (r.success) {
                 props.loadAll();
                 setProduct({
+                    sku: '',
                     count: '',
                     price: '',
                     description: ''
