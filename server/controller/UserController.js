@@ -19,24 +19,41 @@ const userController = {
             res.status(500).json({success: false, message: 'Internal Server Error', error: error.message});
         }
     },
+    updateAddress: async function (req, res, next) {
+        try {
+
+            const {email, address} = req.body;
+            const user = await User.findOne({email: email});
+
+            if (user) {
+                user.address = [{address}]
+                console.log(user)
+                await user.save();
+
+                res.status(200).json({success: true, data: user, message: 'address added successfully'});
+            } else {
+                res.status(404).json({success: false, data: user, message: 'User doesn\'t exist'});
+            }
+        } catch (error) {
+            res.status(500).json({success: false, message: 'Internal Server Error', error: error.message});
+        }
+    },
 
     saveUserCredentials: async function (req, res, next) {
         try {
             const userCred = req.body;
-            const hashedPassword = await bcrypt.hash(userCred.password, 10);
             const savedUser = await User.findOne({email: userCred.email});
 
             if (!savedUser) {
                 const user = await User.create({
                     email: userCred.email,
-                    password: hashedPassword,
                     name: userCred.name,
                     image: userCred.image,
                 });
 
                 res.status(201).json({success: true, data: user, message: 'User created successfully'});
             } else {
-                res.status(409).json({success: false, message: 'User already exists'});
+                res.status(201).json({success: true, data: savedUser, message: 'User logged in successfully'});
             }
         } catch (error) {
             console.error(error);
@@ -176,6 +193,88 @@ const userController = {
             });
         } catch (error) {
             res.status(500).json({success: false, message: 'Error retrieving database stats', error: error.message});
+        }
+    },
+
+    updateFavorite: async function (req, res, next) {
+        try {
+            const {email, sku} = req.body;
+            const user = await User.findOne({email: email});
+
+            if (user) {
+                const favoriteIndex = user.favorite.indexOf(sku);
+
+                if (favoriteIndex > -1) {
+                    user.favorite.splice(favoriteIndex, 1);
+                } else {
+                    user.favorite.push(sku);
+                }
+
+                await user.save();
+
+                res.status(200).json({success: true, data: user, message: 'Favorite list updated successfully'});
+            } else {
+                res.status(404).json({success: false, data: user, message: 'User doesn\'t exist'});
+            }
+        } catch (error) {
+            console.error('Error updating favorite list:', error);
+            res.status(500).json({success: false, message: 'Internal Server Error', error: error.message});
+        }
+    },
+
+    updateCart: async function (req, res, next) {
+        try {
+            const {email, sku, count, price} = req.body;
+            const user = await User.findOne({email: email});
+
+            if (user) {
+                const cartItemIndex = user.cart.findIndex(item => item.sku === sku);
+
+                if (cartItemIndex > -1) {
+                    if (count > 0) {
+                        user.cart[cartItemIndex].count = count;
+                    } else {
+                        user.cart.splice(cartItemIndex, 1);
+                    }
+                } else {
+                    if (count > 0) {
+                        user.cart.push({sku: sku, count: count, price: price});
+                    }
+                }
+
+                await user.save();
+
+                res.status(200).json({success: true, data: user, message: 'Cart updated successfully'});
+            } else {
+                res.status(404).json({success: false, data: user, message: 'User doesn\'t exist'});
+            }
+        } catch (error) {
+            console.error('Error updating cart:', error);
+            res.status(500).json({success: false, message: 'Internal Server Error', error: error.message});
+        }
+    },
+    removeFromCart: async function (req, res, next) {
+        try {
+            const { email, sku } = req.body;
+            const user = await User.findOne({ email: email });
+
+            if (user) {
+                const cartItemIndex = user.cart.findIndex(item => item.sku === sku);
+
+                if (cartItemIndex > -1) {
+                    user.cart.splice(cartItemIndex, 1);
+                    await user.save();
+
+                    res.status(200).json({ success: true, data: user, message: 'Item removed from cart successfully' });
+                } else {
+                    res.status(404).json({ success: false, message: 'Item not found in cart' });
+                }
+            } else {
+                res.status(404).json({ success: false, message: 'User doesn\'t exist' });
+            }
+        } catch (error) {
+            console.error('Error removing item from cart:', error);
+            res.status(500).json({ success: false, message: 'Internal Server Error', error: error.message });
         }
     }
 }

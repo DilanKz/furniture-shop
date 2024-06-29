@@ -1,6 +1,6 @@
 export const Footer = () => {
     return (
-        <div className="w-full h-64 px-16 pt-20 pb-8 bg-black flex-col justify-start items-start gap-12 inline-flex">
+        /*<div className="w-full h-64 px-16 pt-20 pb-8 bg-black flex-col justify-start items-start gap-12 inline-flex">
             <div className="w-full justify-center items-center inline-flex">
                 <div className="grow shrink basis-0 self-stretch justify-between items-center inline-flex">
                     <div className="w-28 h-8 relative"/>
@@ -56,6 +56,7 @@ export const Footer = () => {
                     <div className="w-6 h-6 px-1.5 py-0.5 justify-center items-center flex"/>
                 </div>
             </div>
-        </div>
+        </div>*/
+        <div className={'w-100 h-12 bg-black'}></div>
     );
 };

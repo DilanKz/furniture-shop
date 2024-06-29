@@ -8,10 +8,6 @@ const UserModel = mongoose.Schema({
         index: true,
         primaryKey: true,
     },
-    password: {
-        type: String,
-        required: true,
-    },
     name: {
         type: String,
         required: true,
@@ -19,9 +15,9 @@ const UserModel = mongoose.Schema({
     image: {
         type: String,
     },
-    address: {
-        type: String,
-    },
+    address: [{
+        address: String,
+    }],
     contact: {
         type: String,
     },
@@ -33,12 +29,13 @@ const UserModel = mongoose.Schema({
     cart: [{
         sku: {
             type: String,
-            required: true,
         },
         count: {
             type: Number,
-            required: true,
             min: 1,
+        },
+        price: {
+            type: String
         },
     }],
     favorite: [{

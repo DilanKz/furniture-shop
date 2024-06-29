@@ -6,6 +6,7 @@ import {CheckOut} from "./checkout/CheckOut";
 import {Preview} from "./store/Preview";
 import Navbar from "../../components/navbar/horizontal/Navbar";
 import {Footer} from "../../components/footer/Footer";
+import {Dashboard} from "../dashboard/Index";
 
 const MainPage = () => {
     return (
@@ -13,10 +14,11 @@ const MainPage = () => {
             <Navbar/>
 
             <Routes>
-                <Route path="/home" element={<Home/>}/>
+                <Route path="/" element={<Home/>}/>
                 <Route path="/store" element={<Store/>}/>
                 <Route path="/checkout" element={<CheckOut/>}/>
                 <Route path="/preview" element={<Preview/>}/>
+                <Route path="/panel" Component={Dashboard}></Route>
             </Routes>
 
             <Footer/>

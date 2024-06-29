@@ -4,7 +4,19 @@ const productController = {
 
     getAllProducts: async function (req, res, next) {
         try {
-            let allProducts = await Product.find();
+            let allProducts = await Product.find().select('-image1 -image2 -image3 -image4');
+            res.status(200).json({success: true, data: allProducts, message: "All products retrieved successfully"});
+        } catch (error) {
+            res.status(500).json({success: false, message: "Error retrieving products", error: error.message});
+        }
+    },
+
+    getOneProduct: async function (req, res, next) {
+        try {
+
+            const {sku} = req.body;
+
+            let allProducts = await Product.findOne({sku: sku});
             res.status(200).json({success: true, data: allProducts, message: "All products retrieved successfully"});
         } catch (error) {
             res.status(500).json({success: false, message: "Error retrieving products", error: error.message});
@@ -16,19 +28,14 @@ const productController = {
             const product = req.body
 
             const newProduct = await Product.create({
-                sku: product.sku,
                 name: product.name,
                 price: product.price,
-                description: product.description,
                 count: product.count,
-                additionalData: product.additionalData,
                 image1: product.image1,
                 image2: product.image2,
                 image3: product.image3,
                 image4: product.image4,
-                category: product.category,
-                ratings: product.ratings,
-                clicks: product.clicks
+                description:product.description
             })
 
             res.status(201).json({success: true, data: '', message: "Product created successfully"});
@@ -57,9 +64,9 @@ const productController = {
     deleteProduct: async function (req, res, next) {
         try {
             const {id} = req.params;
-            let article = await Product.deleteOne({_id: id});
+            let product = await Product.deleteOne({_id: id});
 
-            if (article.deletedCount > 0) {
+            if (product.deletedCount > 0) {
                 res.status(200).json({success: true, data: '', message: "Product deleted successfully."});
             } else {
                 res.status(404).json({success: false, data: '', message: "Product not found."});

@@ -10,7 +10,8 @@ const request = async (method, path, data , headers = {}) => {
         });
         return response.data;
     } catch (error) {
-        throw error.response.data || error.message;
+        // throw error.response.data || error.message;
+        console.log(error.response.data.message)
     }
 };
 

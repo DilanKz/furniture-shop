@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const ProductModel = mongoose.Schema({
     sku: {
-        type: String,
-        required: true,
+        type: Number,
         unique: true,
-        index: true,
-        primaryKey: true,
+        index: true
     },
     name: {
         type: String,
@@ -14,19 +13,15 @@ const ProductModel = mongoose.Schema({
     },
     price: {
         type: String,
-        required: true,
     },
     description: {
         type: String,
-        required: true,
     },
     count: {
         type: Number,
-        required: true,
     },
     additionalData: {
         type: String,
-        required: true,
     },
     image1: {
         type: String,
@@ -46,11 +41,9 @@ const ProductModel = mongoose.Schema({
     },
     category: {
         type: [String],
-        required: true,
     },
     ratings: {
         type: [String],
-        required: true,
         default:0
     },
     postDate: {
@@ -68,5 +61,6 @@ const ProductModel = mongoose.Schema({
     }
 });
 
+ProductModel.plugin(AutoIncrement, {inc_field: 'sku'});
 const Article = mongoose.model('Products', ProductModel);
 module.exports = Article;

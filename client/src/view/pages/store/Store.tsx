@@ -3,6 +3,7 @@ import {Button, Col, Row} from "reactstrap";
 import Filter from "../../../assets/icons/filter";
 import {ProductCard} from "../../../components/Cards/ProductCard";
 import request from "../../../utils/request";
+import {FilterModel} from "../../modals/FilterModel";
 
 const Store = () => {
     const [show, setShow] = useState(false)
@@ -23,18 +24,22 @@ const Store = () => {
         fetchData()
     }, []);
 
+    const toggleCanvasScroll = () => {
+        setShow(!show)
+    }
+
     return (
         <div className={'overflow-hidden'}>
             <Row className={'h-100 relative pt-28 sm:px-16 px-8'}>
-                <h1 className={'font-bold'}>{menuName}</h1>
+                <h1 className={'font-bold mb-8'}>{menuName}</h1>
 
                 <Col xs={12} className={'h-full'}>
                     <div className={''}>
                         <Row>
                             <Button
                                 color={''}
-                                onClick={() => setShow(!show)}
-                                className={'w-[max-content!important] d-flex items-center gap-x-2'}
+                                onClick={() => setShow(true)}
+                                className={`w-[max-content!important] d-flex items-center gap-x-2`}
                             >
                                 <Filter/>
                                 <span className={'fw-bolder text-2xl'}>
@@ -50,6 +55,8 @@ const Store = () => {
                     </div>
                 </Col>
             </Row>
+
+            <FilterModel canvasOpen={show} toggleCanvasScroll={toggleCanvasScroll}/>
         </div>
     );
 };

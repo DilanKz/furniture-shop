@@ -70,12 +70,16 @@ const Navbar = () => {
                               className={'text-decoration-none ms-lg-5 text-theme-neutral-four cursor-pointer text-[16px]'}>
                             Contact Us
                         </Link>
-                        <Link to="/home"
+                        <Link to="/panel"
                               className={'text-decoration-none ms-lg-5 text-theme-neutral-four cursor-pointer text-[16px]'}>
-                            <div className={'cursor-pointer d-block d-lg-none'}>
-                                <Search className={'me-3'}/>
-                            </div>
+                            Admin panel
                         </Link>
+                        {user && user.role === 'admin' && (
+                            <Link to="/panel"
+                                  className={'text-decoration-none ms-lg-5 text-theme-neutral-four cursor-pointer text-[16px]'}>
+                                Admin panel
+                            </Link>
+                        )}
                     </List>
                 </div>
 
